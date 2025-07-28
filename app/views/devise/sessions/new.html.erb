@@ -1,0 +1,27 @@
+<div class="form-container">
+  <%= form_with scope: resource_name, url: session_path(resource_name), local: true do |f| %>
+    <% if flash[:alert] %>
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+    <div class="mb-3">
+      <%= f.label :phone %>
+      <%= f.telephone_field :phone, autofocus: true, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :password %>
+      <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.submit "Log In", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <div class="link-center">
+    <%= link_to "Registration", new_user_registration_path %>
+  </div>
+</div>
+
