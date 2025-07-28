@@ -1,0 +1,78 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card p-4 bg-light text-center">
+        <% if current_user.avatar.attached? %>
+          <%= image_tag current_user.avatar.variant(resize_to_limit: [100, 100]), width: 100, height: 100, class: "rounded-circle mx-auto d-block mb-3" %>
+          <h5><%= current_user.first_name %> <%= current_user.last_name %></h5>
+          <h5><%= current_user.phone %></h5>
+
+          <%= button_to "Удалить фото", delete_avatar_path, method: :delete,
+                        class: "btn btn-outline-danger mt-2 w-100" %>
+        <% else %>
+          <%= image_tag "default-avatar.png", width: 100, height: 100, class: "rounded-circle mx-auto d-block mb-3" %>
+
+          <%= form_with model: current_user, url: upload_avatar_path, method: :patch, local: true, html: { multipart: true } do |f| %>
+            <div class="mb-3 mt-3">
+              <%= f.file_field :avatar, class: "form-control" %>
+            </div>
+            <%= f.submit "Upload photo", class: "btn btn-primary w-100" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="card p-4">
+        <% if current_user.doctor? %>
+          <h4>Welcome Doctor!</h4>
+        <% else %>
+          <h4 class="mb-4">Добро пожаловать!</h4>
+
+          <div class="accordion" id="categoriesAccordion">
+            <% @categories.each do |category| %>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="heading-<%= category.id %>">
+                  <button
+                    class="accordion-button collapsed"    <%# «collapsed» = закрыто по-умолчанию %>
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapse-<%= category.id %>"
+                    aria-expanded="false"
+                    aria-controls="collapse-<%= category.id %>">
+                    <%= category.name %>
+                  </button>
+                </h2>
+
+                <div
+                  id="collapse-<%= category.id %>"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="heading-<%= category.id %>"
+                  data-bs-parent="#categoriesAccordion">
+
+                  <div class="accordion-body p-0">
+                    <ul class="list-group list-group-flush">
+                      <% category.doctors.each do |doc| %>
+                        <li class="list-group-item">
+                          <%= "#{doc.first_name} #{doc.last_name}" %>
+                          <%= link_to 'Create appointment', '#', class: 'btn btn-outline-primary w-100' %>
+                        </li>
+                      <% end %>
+
+                      <% if category.doctors.empty? %>
+                        <li class="list-group-item text-muted fst-italic">
+                          Нет врачей в этой категории
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
