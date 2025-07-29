@@ -7,7 +7,7 @@
     <% end %>
     <div class="mb-3">
       <%= f.label :phone %>
-      <%= f.telephone_field :phone, autofocus: true, class: "form-control" %>
+      <%= f.phone_field :phone, autofocus: true, class: "form-control" %>
     </div>
 
     <div class="mb-3">
@@ -21,7 +21,7 @@
   <% end %>
 
   <div class="link-center">
-    <%= link_to "Registration", new_user_registration_path %>
+    <%= link_to "Registration", new_user_registration_path, class: 'btn btn-outline-success' %>
   </div>
 </div>
 

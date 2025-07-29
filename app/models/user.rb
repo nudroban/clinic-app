@@ -17,12 +17,8 @@ class User < ApplicationRecord
   scope :doctors, -> { where(role: :doctor) }
   scope :patients, -> { where(role: :patient) }
 
-  def self.ransackable_attributes(auth_object = nil)
-    %w[id email phone created_at updated_at role]
-  end
-
-  def self.ransackable_associations(auth_object = nil)
-    %w[avatar_attachment avatar_blob category]
+  def set_default_role
+    self.role ||= :user
   end
 
   def email_required?
@@ -35,9 +31,5 @@ class User < ApplicationRecord
 
   def will_save_change_to_email?
     false
-  end
-
-  def set_default_role
-    self.role ||= :user
   end
 end
