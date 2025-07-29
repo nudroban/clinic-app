@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   def upload_avatar
     if params[:user][:avatar].present?

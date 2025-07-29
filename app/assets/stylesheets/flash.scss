@@ -1,53 +1,3 @@
-.form-container {
-    max-width: 400px;
-    margin: 6rem auto;
-    padding: 2rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #f9f9f9;
-}
-
-.form-title {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.link-center {
-    text-align: center;
-    margin-top: 1rem;
-}
-
-body {
-    padding-top: 60px;
-}
-
-section {
-    overflow: auto;
-}
-
-textarea {
-    resize: vertical;
-}
-
-.center {
-    text-align: center;
-}
-
-.center h1 {
-    margin-bottom: 10px;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    line-height: 1;
-}
-
-p {
-    font-size: 1.1em;
-    line-height: 1.7em;
-}
-
 .notice-msg {
     text-align: center;
 }
@@ -99,8 +49,4 @@ p {
             }
         }
     }
-}
-
-.card.bg-light {
-    background-color: #f8f9fa !important;
 }
