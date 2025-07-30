@@ -1,0 +1,9 @@
+<div class="container my-4">
+  <%= form_with url: appointment_recommendation_path(@appointment), model: @recommendation, local: true do |f| %>
+    <div class="mb-3">
+      <%= f.text_area :content, class: "form-control", rows: 5 %>
+    </div>
+
+    <%= f.submit class: "btn btn-primary" %>
+  <% end %>
+</div>

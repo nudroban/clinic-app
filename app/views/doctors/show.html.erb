@@ -1,0 +1,20 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card text-center shadow-sm p-4">
+        <% if @doctor.avatar.attached? %>
+          <%= image_tag @doctor.avatar.variant(resize_to_fill: [140,140]),
+                        class: "rounded-circle mx-auto mb-3",
+                        style: "width:140px; height:140px;" %>
+        <% else %>
+          <%= image_tag "default-avatar.png",
+                        class: "rounded-circle mx-auto mb-3",
+                        style: "width:140px; height:140px;" %>
+        <% end %>
+
+        <h4 class="mb-1"><%= @doctor.first_name %> <%= @doctor.last_name %></h4>
+        <p class="text-muted small mb-3"><%= @doctor.category.name %></p>
+      </div>
+    </div>
+  </div>
+</div>

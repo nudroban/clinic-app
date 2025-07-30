@@ -1,0 +1,60 @@
+<div class="container my-5">
+  <h2 class="mb-4 text-center">Doctors</h2>
+
+  <div class="accordion" id="categoriesAccordion">
+    <% @categories.each_with_index do |category, index| %>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading-<%= category.id %>">
+          <button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse-<%= category.id %>"
+                  aria-expanded="false"
+                  aria-controls="collapse-<%= category.id %>">
+            <%= category.name %>
+          </button>
+        </h2>
+
+        <div id="collapse-<%= category.id %>"
+             class="accordion-collapse collapse"
+             aria-labelledby="heading-<%= category.id %>"
+             data-bs-parent="#categoriesAccordion">
+
+          <div class="accordion-body">
+            <% if category.doctors.any? %>
+              <div class="row g-2">
+                <% category.doctors.each do |doctor| %>
+                  <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                    <div class="card text-center h-100 shadow-sm p-2 border-0 bg-light">
+                      <%= link_to doctor_path(doctor), class: "text-decoration-none text-dark" do %>
+                        <% if doctor.avatar.attached? %>
+                          <%= image_tag doctor.avatar.variant(resize_to_fill: [60, 60]),
+                                        class: "rounded-circle mx-auto d-block mb-1",
+                                        style: "width:60px; height:60px;" %>
+                        <% else %>
+                          <%= image_tag "default-avatar.png",
+                                        class: "rounded-circle mx-auto d-block mb-1",
+                                        style: "width:60px; height:60px;" %>
+                        <% end %>
+
+                        <div class="small">
+                          <strong><%= truncate("#{doctor.first_name} #{doctor.last_name}", length: 20) %></strong>
+                        </div>
+                      <% end %>
+
+                      <%= link_to "Make an Appointment",
+                                  new_doctor_appointment_path(doctor),
+                                  class: "btn btn-sm btn-outline-primary mt-1 w-100" %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <p class="text-muted fst-italic">There are no available doctors in this category.</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
