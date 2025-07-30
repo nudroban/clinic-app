@@ -4,42 +4,18 @@
       <h2 class="mb-4">My Appointments</h2>
 
       <% if @appointments.any? %>
-        <ul class="list-group">
-          <% @appointments.each do |appt| %>
-            <li class="list-group-item d-flex flex-column">
-              <div>
-                <strong><%= l appt.date, format: :long %></strong> at <%= appt.time.strftime("%H:%M") %>
-              </div>
-              <div>
-                <strong>Doctor:</strong>
-                <%= link_to appt.doctor.full_name, doctor_path(appt.doctor) %>
-              </div>
-
-              <% if appt.notes.present? %>
-                <div>
-                  <small class="text-muted">Comment: <%= appt.notes %></small>
-                </div>
-              <% end %>
-
-              <div class="mt-auto d-flex justify-content-start">
-                <% if appt.recommendation.present? %>
-                  <%= link_to 'Recommendations',
-                              recommendation_path(appt.recommendation),
-                              class: "btn btn-outline-secondary btn-sm" %>
-                <% elsif current_user.doctor? && appt.doctor == current_user %>
-                  <%= link_to 'Add Recommendation',
-                              new_appointment_recommendation_path(appt),
-                              class: "btn btn-primary btn-sm" %>
-                <% end %>
-              </div>
-            </li>
-          <% end %>
-        </ul>
+        <% if current_user.doctor? %>
+          <%= render 'appointments/doctor_appointments' %>
+        <% else %>
+          <%= render 'appointments/patient_appointments' %>
+        <% end %>
       <% else %>
         <p class="text-muted">You don't have any appointments yet.</p>
       <% end %>
       <div class="d-flex justify-content-between mt-4">
-        <%= link_to "Back to Doctors", doctors_path, class: "btn btn-outline-secondary" %>
+        <% if current_user.patient? %>
+          <%= link_to "Back to Doctors", doctors_path, class: "btn btn-outline-secondary" %>
+        <% end %>
       </div>
     </div>
   </div>

@@ -1,0 +1,27 @@
+<ul class="list-group">
+  <% @appointments.each do |appt| %>
+    <li class="list-group-item d-flex flex-column">
+      <div>
+        <strong><%= l appt.date, format: :long %></strong> at <%= appt.time.strftime("%H:%M") %>
+      </div>
+      <div>
+        <strong>Patient:</strong>
+        <%= appt.patient.full_name %>
+      </div>
+
+      <% if appt.notes.present? %>
+        <div>
+          <small class="text-muted">Comment: <%= appt.notes %></small>
+        </div>
+      <% end %>
+
+      <div class="mt-auto d-flex justify-content-start">
+        <% if appt.doctor == current_user %>
+          <%= link_to 'Add Recommendation',
+                      new_appointment_recommendation_path(appt),
+                      class: "btn btn-primary btn-sm" %>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ul>
