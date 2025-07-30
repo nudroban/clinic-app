@@ -1,2 +1,57 @@
+AllCops:
+  EnabledByDefault: true
+  Exclude:
+    - 'spec/support/pathing.rb'
+    - 'db/schema.rb'
+
+Style/DisableCopsWithinSourceCodeDirective:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 100
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Layout/SingleLineBlockChain:
+  Exclude:
+    - 'spec/**/*.rb'
+
 Style/Documentation:
+  Enabled: false
+
+Style/Copyright:
+  Enabled: false
+
+Style/MethodCallWithArgsParentheses:
+  Enabled: false
+
+Style/DocumentationMethod:
+  Enabled: false
+
+Style/MissingElse:
+  Enabled: false
+
+Style/StringHashKeys:
+  Enabled: false
+  Description: 'Prefer symbols instead of strings as hash keys.'
+
+Style/AndOr:
+  Enabled: false
+
+Bundler/GemComment:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Lint/ConstantResolution:
+  Enabled: false
+
+Rails/SchemaComment:
   Enabled: false

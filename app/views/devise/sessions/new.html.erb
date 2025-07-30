@@ -1,10 +1,5 @@
 <div class="form-container">
   <%= form_with scope: resource_name, url: session_path(resource_name), local: true do |f| %>
-    <% if flash[:alert] %>
-      <div class="alert alert-danger">
-        <%= flash[:alert] %>
-      </div>
-    <% end %>
     <div class="mb-3">
       <%= f.label :phone %>
       <%= f.phone_field :phone, autofocus: true, class: "form-control" %>

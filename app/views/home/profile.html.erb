@@ -1,36 +1,53 @@
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-md-4">
-      <div class="card p-4 bg-light text-center">
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+      <div class="card shadow-sm p-4 bg-light text-center">
+
         <% if current_user.avatar.attached? %>
-          <%= image_tag current_user.avatar.variant(resize_to_limit: [140, 140]), width: 140, height: 140, class: "rounded-circle mx-auto d-block mb-3" %>
-          <h5><%= current_user.first_name %> <%= current_user.last_name %></h5>
-          <h5><%= current_user.phone %></h5>
-
-          <%= button_to "Удалить фото", delete_avatar_path, method: :delete,
-                        class: "btn btn-outline-danger mt-2 w-100" %>
+          <%= image_tag current_user.avatar.variant(resize_to_limit: [140, 140]),
+                        width: 140, height: 140,
+                        class: "rounded-circle mx-auto d-block mb-3" %>
         <% else %>
-          <%= image_tag "default-avatar.png", width: 140, height: 140, class: "rounded-circle mx-auto d-block mb-3" %>
+          <%= image_tag "default-avatar.png",
+                        width: 140, height: 140,
+                        class: "rounded-circle mx-auto d-block mb-3" %>
+        <% end %>
 
-          <%= form_with model: current_user, url: upload_avatar_path, method: :patch, local: true, html: { multipart: true } do |f| %>
-            <div class="mb-3 mt-3">
-              <%= f.file_field :avatar, class: "form-control" %>
+        <h5 class="mb-0"><%= current_user.first_name %> <%= current_user.last_name %></h5>
+        <p  class="text-muted mb-3"><%= current_user.phone %></p>
+
+        <% if current_user.avatar.attached? %>
+          <%= button_to "Delete photo",
+                        delete_avatar_path,
+                        method: :delete,
+                        class: "btn btn-outline-danger btn-sm w-100 mb-3" %>
+        <% else %>
+          <%= form_with model: current_user,
+                        url: upload_avatar_path,
+                        method: :patch,
+                        local: true,
+                        html: { multipart: true } do |f| %>
+
+            <div class="mb-2">
+              <%= f.file_field :avatar, class: "form-control form-control-sm" %>
             </div>
-            <%= f.submit "Upload photo", class: "btn btn-primary w-100" %>
+            <%= f.submit "Upload photo", class: "btn btn-primary btn-sm w-100 mb-3" %>
           <% end %>
         <% end %>
-      </div>
-    </div>
-
-    <div class="col-md-8">
-      <div class="card p-4">
         <% if current_user.doctor? %>
-          <h4>Welcome Doctor!</h4>
+          <div class="d-grid gap-2">
+            <%= link_to "Appointments", appointments_path, class: "btn btn-outline-primary" %>
+          </div>
         <% else %>
-          <%= render 'home/patient_dashboard' %>
+          <div class="d-grid gap-2">
+            <%= link_to "Doctors", doctors_path, class: "btn btn-outline-primary" %>
+            <%= link_to "Appointments", appointments_path, class: "btn btn-outline-primary" %>
+          </div>
         <% end %>
       </div>
     </div>
   </div>
 </div>
+
+
 

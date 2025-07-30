@@ -7,6 +7,15 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, authentication_keys: [:phone]
   has_one_attached :avatar
+  has_many :appointments_as_doctor,
+           class_name: 'Appointment',
+           foreign_key: :doctor_id,
+           dependent: :destroy
+
+  has_many :appointments_as_patient,
+           class_name: 'Appointment',
+           foreign_key: :patient_id,
+           dependent: :destroy
   belongs_to :category, optional: true
 
   validates :phone, uniqueness: true,
@@ -18,7 +27,11 @@ class User < ApplicationRecord
   scope :patients, -> { where(role: :patient) }
 
   def set_default_role
-    self.role ||= :user
+    self.role ||= :patient
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
   end
 
   def email_required?

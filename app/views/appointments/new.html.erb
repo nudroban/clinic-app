@@ -1,0 +1,28 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-5">
+
+      <h1 class="mb-4">Appointment with a doctor: <%= @doctor.full_name %></h1>
+
+      <%= form_with model: @appointment, url: doctor_appointments_path(@doctor), local: true do |f| %>
+        <div class="mb-3">
+          <%= f.label :date, "Date" %>
+          <%= f.date_field :date, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :time, "Time" %>
+          <%= f.time_field :time, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :notes, "Comment (optional)" %>
+          <%= f.text_area :notes, class: "form-control", rows: 3 %>
+        </div>
+
+        <%= f.submit "Make an appointment", class: "btn btn-primary w-100" %>
+      <% end %>
+
+    </div>
+  </div>
+</div>

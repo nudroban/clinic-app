@@ -1,0 +1,14 @@
+<% if flash.any? %>
+  <script>
+      iziToast.destroy();
+
+      <% flash.each do |type, msg| %>
+      iziToast.<%= toast_type_for(type) %>({
+          message: "<%= j msg %>",
+          position: "topCenter",
+          timeout: 4000
+      });
+      <% end %>
+  </script>
+  <% flash.discard %>
+<% end %>
