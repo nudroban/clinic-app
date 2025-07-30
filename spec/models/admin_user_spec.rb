@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe AdminUser, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "does not require email" do
+    admin = AdminUser.new(password: 'password')
+    expect(admin.email_required?).to be_falsey
+    expect(admin).to be_valid
+  end
 end
