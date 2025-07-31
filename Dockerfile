@@ -20,7 +20,7 @@ FROM base as build
 # Install packages needed to build gems
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
-    build-essential git libpq-dev libvips pkg-config \
+    build-essential git libpq-dev libvips pkg-config imagemagick \
     nodejs yarn && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
@@ -46,7 +46,7 @@ FROM base
 # Install packages needed for deployment
 RUN apt-get update -qq && \
         apt-get install --no-install-recommends -y \
-          libpq5 libsqlite3-0 libvips curl && \
+          libpq5 libsqlite3-0 libvips imagemagick curl && \
         rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 # Copy built artifacts: gems, application
