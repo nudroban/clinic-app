@@ -19,7 +19,10 @@ FROM base as build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libvips pkg-config
+    apt-get install --no-install-recommends -y \
+    build-essential git libpq-dev libvips pkg-config \
+    nodejs yarn && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
@@ -42,8 +45,9 @@ FROM base
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libsqlite3-0 libvips && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+        apt-get install --no-install-recommends -y \
+          libpq5 libsqlite3-0 libvips curl && \
+        rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
